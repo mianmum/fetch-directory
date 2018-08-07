@@ -1,24 +1,18 @@
 
 // Global variables
-const container = document.querySelector('.container');
+const container = document.querySelector(".container");
 const dataArr = [];
 // Request function
 const fetchData = () => {
-  fetch('https://randomuser.me/api/?inc=name,email,location,picture')
+  fetch("https://randomuser.me/api/?inc=name,email,location,picture")
     .then(response => response.json())
-    .then(data => dataArr.push(data.results["0"]));
-}
-// Run function x times
-const runFetch = num => {
-  for (let i = 0; i < num; i++) {
-    fetchData();
-  };
+    .then(data => dataArr.push(data.results["0"]))
+    .catch(response => new Error(response.statusText));
 };
-runFetch(12);
 // Generate grid items
-const generateGrid = () => {
-dataArr.map(function(object) {
-  console.log(object);
+const generateGrid = function() {
+  dataArr.map(function(object) {
+    console.log(object);
     let item = `
       <div class="galleryItem">
         <div class="imageDiv">
@@ -30,7 +24,15 @@ dataArr.map(function(object) {
           <p>${object.location.city}</p>
         </div>
       </div>`;
-      container.innerHTML += item;
+    container.innerHTML += item;
   });
 };
+// Run fetch function x times
+const runFetch = num => {
+  for (let i = 0; i < num; i++) {
+    fetchData();
+    console.log('ran fetch');
+  };
+};
+runFetch(12);
 generateGrid();
