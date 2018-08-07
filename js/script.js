@@ -1,38 +1,26 @@
 
 // Global variables
 const container = document.querySelector(".container");
-const dataArr = [];
 // Request function
-const fetchData = () => {
-  fetch("https://randomuser.me/api/?inc=name,email,location,picture")
-    .then(response => response.json())
-    .then(data => dataArr.push(data.results["0"]))
-    .catch(response => new Error(response.statusText));
-};
+fetch("https://randomuser.me/api/?inc=name,email,location,picture&results=12")
+  .then(response => response.json())
+  .then(data => generateGrid(data))
+  .catch(response => new Error(response.statusText));
 // Generate grid items
-const generateGrid = function() {
-  dataArr.map(function(object) {
-    console.log(object);
-    let item = `
-      <div class="galleryItem">
-        <div class="imageDiv">
-          <img src="${object.picture.medium}" alt="User Avatar">
-        </div>
-        <div class="info">
-          <h2>${object.name}</h2>
-          <p>${object.email}</p>
-          <p>${object.location.city}</p>
-        </div>
-      </div>`;
-    container.innerHTML += item;
-  });
+const generateGrid = function(data) {
+  let userData = data.results;
+  var userElements = userData.map((function(user) {
+    console.log(user);
+    `<div class="galleryItem">
+      <div class="imageDiv">
+        <img src="${user.picture.medium}" alt="User Avatar">
+      </div>
+      <div class="info">
+        <h2>${user.name}</h2>
+        <p>${user.email}</p>
+        <p>${user.location.city}</p>
+      </div>
+    </div>`
+  }));
+  container.innerHTML += userElements;
 };
-// Run fetch function x times
-const runFetch = num => {
-  for (let i = 0; i < num; i++) {
-    fetchData();
-    console.log('ran fetch');
-  };
-};
-runFetch(12);
-generateGrid();
