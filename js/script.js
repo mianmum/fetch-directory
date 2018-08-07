@@ -33,3 +33,4 @@ dataArr.map(function(object) {
       container.innerHTML += item;
   });
 };
+generateGrid();
