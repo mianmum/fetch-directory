@@ -33,7 +33,7 @@ const modalFill = function(user) {
   + `
     <hr>
     <p>${userData[galleryItems.indexOf(user)].phone}</p>
-    <p>${userData[galleryItems.indexOf(user)].location.street}, ${userData[galleryItems.indexOf(user)].location.postcode}</p>
+    <p>${userData[galleryItems.indexOf(user)].location.street}, ${userData[galleryItems.indexOf(user)].location.state}, ${userData[galleryItems.indexOf(user)].location.postcode}</p>
     <p>Birthday: ${userData[galleryItems.indexOf(user)].dob.date.slice(0, 10)}</p>
     <span class="close-button">&times;</span
     `
