@@ -27,7 +27,6 @@ const generateGrid = function(data) {
 // Fill Modal
 const modalFill = function(user) {
   galleryItems = Array.from(document.querySelectorAll('.galleryItem'));
-  console.log(galleryItems);
   modalBox.innerHTML = "";
   modalBox.innerHTML +=
     user.innerHTML
@@ -48,6 +47,7 @@ const closeModal = function() {
 const modalClick = () => {
   container.addEventListener('click', e => {
     if (e.target.classList.contains('galleryItem')) {
+      console.log('clicked');
       modal.classList.toggle('show-modal');
       modalFill(e.target);
       closeModal();
@@ -58,5 +58,5 @@ const modalClick = () => {
 fetch("https://randomuser.me/api/?inc=name,email,location,picture,phone,dob&nat=ca&results=12")
   .then(response => response.json())
   .then(data => generateGrid(data))
-  .then(modalClick())
   .catch(response => new Error(response.statusText));
+modalClick();
