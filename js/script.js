@@ -46,12 +46,15 @@ const closeModal = function() {
 // Modal
 const modalClick = () => {
   container.addEventListener('click', e => {
-    if (e.target.classList.contains('galleryItem')) {
-      console.log('clicked');
-      modal.classList.toggle('show-modal');
-      modalFill(e.target);
-      closeModal();
-    };
+	let employee = e.target;
+    if (!employee.classList.contains('container')) {
+        if (!employee.classList.contains('galleryItem')) {
+          employee = employee.closest('.galleryItem');
+        };
+        modal.classList.toggle('show-modal');
+        modalFill(employee);
+        closeModal();
+    }
   });
 };
 // Fetch request
